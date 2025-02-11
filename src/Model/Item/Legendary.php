@@ -14,16 +14,7 @@ class Legendary extends AbstractItem
     {
     }
 
-    public function hasMaxQuality(): bool
-    {
-        return true;
-    }
-
-    public function increaseQuality(): void
-    {
-    }
-
-    public function decreaseQuality(): void
+    public function updateQuality(): void
     {
     }
 

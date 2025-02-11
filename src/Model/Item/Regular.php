@@ -16,24 +16,10 @@ class Regular extends AbstractItem
     {
     }
 
-    public function hasExpirationDate(): bool
-    {
-        return true;
-    }
-
-    public function isExpired(): bool
-    {
-        return $this->sellIn < 0;
-    }
-
-    public function increaseQuality(): void
-    {
-    }
-
     /**
      * @throws GildedRoseLogicException
      */
-    public function decreaseQuality(): void
+    public function updateQuality(): void
     {
         $this->isExpired() ? $this->quality -= 2 : $this->quality--;
         if ($this->quality < 0) {

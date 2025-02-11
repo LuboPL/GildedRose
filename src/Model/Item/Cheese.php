@@ -21,10 +21,7 @@ class Cheese extends AbstractItem
         return true;
     }
 
-    /**
-     * @throws GildedRoseLogicException
-     */
-    public function increaseQuality(): void
+    public function updateQuality(): void
     {
         if ($this->raisesQuality() && $this->quality <= 50) {
             $increaseQuality = $this->sellIn > 0 ? 1 : 2;
@@ -35,9 +32,5 @@ class Cheese extends AbstractItem
             }
             $this->quality += $increaseQuality;
         }
-    }
-
-    public function decreaseQuality(): void
-    {
     }
 }

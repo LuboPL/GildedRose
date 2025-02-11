@@ -14,7 +14,7 @@ class ItemTest extends TestCase
         $this->expectException(GildedRoseLogicException::class);
 
         $item = ItemFactory::create('Parmegiano', 'cheese', -1, 49);
-        $item->increaseQuality();
+        $item->updateQuality();
 
         $this->expectExceptionMessage('Quality cannot be bigger than 50');
     }
@@ -24,7 +24,7 @@ class ItemTest extends TestCase
         $this->expectException(GildedRoseLogicException::class);
 
         $item = ItemFactory::create('Water', 'regular', -1, 1);
-        $item->decreaseQuality();
+        $item->updateQuality();
 
         $this->expectExceptionMessage('Quality cannot be negative');
     }

@@ -14,11 +14,7 @@ class Electronic extends AbstractItem
     {
     }
 
-    public function increaseQuality(): void
-    {
-    }
-
-    public function decreaseQuality(): void
+    public function updateQuality(): void
     {
     }
 

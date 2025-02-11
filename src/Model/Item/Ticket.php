@@ -24,39 +24,25 @@ class Ticket extends AbstractItem
     /**
      * @throws GildedRoseLogicException
      */
-    public function increaseQuality(): void
+    public function updateQuality(): void
     {
-        if (!$this->raisesQuality() || $this->sellIn <= 0) {
-            return;
-        }
+        if ($this->raisesQuality() || $this->sellIn >= 0) {
+            $increase = match (true) {
+                $this->sellIn >= 10 => 1,
+                $this->sellIn > 5 => 2,
+                default => 3,
+            };
 
-        $increase = match (true) {
-            $this->sellIn >= 10 => 1,
-            $this->sellIn > 5 => 2,
-            default => 3,
-        };
+            if ($this->isExpired()) {
+                $this->quality = 0;
+                return;
+            }
 
-        if ($this->quality + $increase > 50) {
-            throw new GildedRoseLogicException('Quality cannot be bigger than 50');
-        }
+            if ($this->quality + $increase > 50) {
+                throw new GildedRoseLogicException('Quality cannot be bigger than 50');
+            }
 
-        $this->quality += $increase;
-    }
-
-    public function hasExpirationDate(): bool
-    {
-        return true;
-    }
-
-    public function isExpired(): bool
-    {
-        return $this->sellIn < 0;
-    }
-
-    public function decreaseQuality(): void
-    {
-        if ($this->isExpired()) {
-            $this->markNoQuality();
+            $this->quality += $increase;
         }
     }
 }

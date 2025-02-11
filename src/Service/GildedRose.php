@@ -8,12 +8,11 @@ use App\Model\Item\ItemBehaviourInterface;
 
 class GildedRose
 {
-    public function updateQuality(ItemBehaviourInterface $item): void
+    public function updateItem(ItemBehaviourInterface $item): void
     {
         try {
             $item->decreaseSellInn();
-            $item->decreaseQuality();
-            $item->increaseQuality();
+            $item->updateQuality();
         } catch (GildedRoseLogicException $exception) {
             // place to log here
         }

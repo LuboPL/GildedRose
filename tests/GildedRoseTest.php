@@ -31,7 +31,7 @@ class GildedRoseTest extends TestCase
 
         $item = ItemFactory::create($name, $type, $sellIn, $quality);
 
-        $this->gildedRose->updateQuality($item);
+        $this->gildedRose->updateItem($item);
 
         $this->assertEquals($expectedSellIn, $item->getSellIn());
         $this->assertEquals($expectedQuality, $item->getQuality());
