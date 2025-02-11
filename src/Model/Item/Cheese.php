@@ -7,15 +7,6 @@ use App\Exception\GildedRoseLogicException;
 
 class Cheese extends AbstractItem
 {
-    public function __construct(
-        public readonly string $name,
-        public readonly string $itemType,
-        protected int $sellIn,
-        protected int $quality
-    )
-    {
-    }
-
     public function raisesQuality(): bool
     {
         return true;

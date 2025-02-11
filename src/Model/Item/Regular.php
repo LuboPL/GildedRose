@@ -7,15 +7,6 @@ use App\Exception\GildedRoseLogicException;
 
 class Regular extends AbstractItem
 {
-    public function __construct(
-        public readonly string $name,
-        public readonly string $itemType,
-        protected int $sellIn,
-        protected int $quality
-    )
-    {
-    }
-
     /**
      * @throws GildedRoseLogicException
      */
