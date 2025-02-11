@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use App\Model\Item;
+use App\Factory\ItemFactory;
 use App\Service\GildedRose;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +29,9 @@ class GildedRoseTest extends TestCase
     {
         $type = $this->getItemTypeByName($name);
 
-        $item = new Item($name, $type, $sellIn, $quality);
+
+        $item = ItemFactory::create($name, $type, $sellIn, $quality);
+
         $this->gildedRose->updateQuality($item);
 
         $this->assertEquals($expectedSellIn, $item->getSellIn());
@@ -74,7 +76,7 @@ class GildedRoseTest extends TestCase
             'legendary' => ['Sulfuras, Hand of Ragnaros'],
             'cheese' => ['Aged Brie'],
             'ticket' => ['Backstage passes to a TAFKAL80ETC concert'],
-            'elixir' => ['Elixir of the Mongoose'],
+            'regular' => ['Elixir of the Mongoose'],
             'electronic' => ['Portable computer'],
         ];
 

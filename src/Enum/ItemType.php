@@ -8,6 +8,6 @@ enum ItemType: string
     case CHEESE = 'cheese';
     case TICKET = 'ticket';
     case LEGENDARY = 'legendary';
-    case ELIXIR = 'elixir';
+    case REGULAR = 'regular';
     case ELECTRONIC = 'electronic';
 }
