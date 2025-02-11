@@ -10,16 +10,18 @@ use PHPUnit\Framework\TestCase;
 class GildedRoseTest extends TestCase
 {
     private readonly GildedRose $gildedRose;
+    private readonly ItemFactory $itemFactory;
 
     public function setUp(): void
     {
         $this->gildedRose = new GildedRose();
+        $this->itemFactory = new ItemFactory();
     }
 
     /**
      * @dataProvider itemsProvider
      */
-    public function testUpdateQuality(
+    public function testUpdateItem(
         string $name,
         int $sellIn,
         int $quality,
@@ -29,7 +31,7 @@ class GildedRoseTest extends TestCase
     {
         $type = $this->getItemTypeByName($name);
 
-        $item = ItemFactory::create($name, $type, $sellIn, $quality);
+        $item = $this->itemFactory->create($name, $type, $sellIn, $quality);
 
         $this->gildedRose->updateItem($item);
 
