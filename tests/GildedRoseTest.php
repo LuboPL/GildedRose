@@ -30,7 +30,6 @@ class GildedRoseTest extends TestCase
         $type = $this->getItemTypeByName($name);
 
         $item = new Item($name, $type, $sellIn, $quality);
-
         $this->gildedRose->updateQuality($item);
 
         $this->assertEquals($expectedSellIn, $item->getSellIn());
@@ -63,18 +62,20 @@ class GildedRoseTest extends TestCase
             'Sulfuras after sell in date' => ['Sulfuras, Hand of Ragnaros', -1, 80, -1, 80],
             'Elixir of the Mongoose before sell in date' => ['Elixir of the Mongoose', 10, 10, 9, 9],
             'Elixir of the Mongoose sell in date' => ['Elixir of the Mongoose', 0, 10, -1, 8],
+            'Elixir of the Mongoose after sell in date' => ['Elixir of the Mongoose', -1, 8, -2, 6],
+            'Old portable computer' => ['Portable computer', 0, 49, 0, 49],
         ];
     }
 
-
     // using as in memory repository
-    private function getItemTypeByName(string $name): ?string
+    private function getItemTypeByName(string $name): string
     {
         $itemsByTypes = [
             'legendary' => ['Sulfuras, Hand of Ragnaros'],
-            'cheese'    => ['Aged Brie'],
-            'ticket'    => ['Backstage passes to a TAFKAL80ETC concert'],
-            'elixir'    => ['Elixir of the Mongoose'],
+            'cheese' => ['Aged Brie'],
+            'ticket' => ['Backstage passes to a TAFKAL80ETC concert'],
+            'elixir' => ['Elixir of the Mongoose'],
+            'electronic' => ['Portable computer'],
         ];
 
         foreach ($itemsByTypes as $type => $itemName) {
@@ -83,6 +84,7 @@ class GildedRoseTest extends TestCase
             }
         }
 
-        return null;
+        throw new \RuntimeException(sprintf('Not found type, for product name: %s', $name));
     }
 }
+

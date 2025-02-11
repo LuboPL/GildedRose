@@ -7,6 +7,7 @@ interface ItemBehaviourInterface
 {
     public function raisesQuality(): bool;
     public function hasMaxQuality(): bool;
+    public function hasExpirationDate(): bool;
     public function isExpired(): bool;
     public function increaseQuality(): void;
     public function decreaseQuality(): void;

@@ -9,4 +9,5 @@ enum ItemType: string
     case TICKET = 'ticket';
     case LEGENDARY = 'legendary';
     case ELIXIR = 'elixir';
+    case ELECTRONIC = 'electronic';
 }

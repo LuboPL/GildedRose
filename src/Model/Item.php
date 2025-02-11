@@ -48,6 +48,14 @@ final class Item implements ItemBehaviourInterface
         return $this->quality === 80;
     }
 
+    public function hasExpirationDate(): bool
+    {
+        return match ($this->itemType) {
+            ItemType::ELECTRONIC->value => false,
+            default => true,
+        };
+    }
+
     /**
      * @throws GildedRoseLogicException
      */
@@ -56,34 +64,6 @@ final class Item implements ItemBehaviourInterface
         if ($this->quality < 50) {
             $this->updateQualityBasedOnItemType();
         }
-
-        if ($this->quality > 50) {
-            throw new GildedRoseLogicException('Quality cannot be bigger than 50');
-        }
-//        if ($this->quality < 50) {
-//            if ($this->itemType === ItemType::CHEESE->value) {
-//                $this->quality++;
-//                if ($this->sellIn <= 0 && $this->quality < 50) {
-//                    $this->quality++;
-//                }
-//            }
-//
-//            if ($this->itemType === ItemType::TICKET->value) {
-//                if ($this->sellIn >= 10) {
-//                    $this->quality++;
-//                }
-//                if ($this->sellIn < 10 && $this->sellIn > 5) {
-//                    $this->quality = $this->quality + 2;
-//                }
-//                if ($this->sellIn <= 5) {
-//                    $this->quality = $this->quality + 3;
-//                }
-//            }
-//        }
-//
-//        if ($this->quality > 50) {
-//            throw new GildedRoseLogicException('Quality cannot be bigger than 50');
-//        }
     }
 
     /**
@@ -91,17 +71,13 @@ final class Item implements ItemBehaviourInterface
      */
     public function decreaseQuality(): void
     {
-        if ($this->itemType === ItemType::ELIXIR->value && $this->sellIn < 0) {
-            $this->quality = $this->quality - 2;
-        }
+        $decrease = $this->sellIn > 0 ? 1 : 2;
 
-        if ($this->itemType === ItemType::ELIXIR->value && $this->sellIn > 0) {
-            $this->quality--;
-        }
-
-        if ($this->quality < 0) {
+        if ($this->quality - $decrease < 0) {
             throw new GildedRoseLogicException('Quality cannot be negative');
         }
+
+        $this->quality -= $decrease;
     }
 
     public function decreaseSellInn(): void
@@ -117,34 +93,32 @@ final class Item implements ItemBehaviourInterface
         };
     }
 
+    /**
+     * @throws GildedRoseLogicException
+     */
     private function updateQualityBasedOnItemType(): void
     {
         switch ($this->itemType) {
             case ItemType::CHEESE->value:
-                $this->updateCheeseQuality();
+                $this->quality++;
+                if ($this->sellIn <= 0 && $this->quality < 50) {
+                    $this->quality++;
+                }
+                if ($this->quality > 50) {
+                    $this->quality = 50;
+                    throw new GildedRoseLogicException('Quality cannot be bigger than 50');
+                }
                 break;
+
             case ItemType::TICKET->value:
-                $this->updateTicketQuality();
+                if ($this->sellIn >= 0) {
+                    $increase = ($this->sellIn > 10) ? 1 : (($this->sellIn > 5) ? 2 : 3);
+                    if ($increase + $this->quality > 50) {
+                        throw new GildedRoseLogicException('Quality cannot be bigger than 50');
+                    }
+                    $this->quality += $increase;
+                }
                 break;
         }
-    }
-
-    private function updateCheeseQuality(): void
-    {
-        $this->quality++;
-        if ($this->sellIn <= 0 && $this->quality < 50) {
-            $this->quality++;
-        }
-    }
-
-    private function updateTicketQuality(): void
-    {
-        $increase = match (true) {
-            $this->sellIn >= 10 => 1,
-            $this->sellIn >= 5 => 2,
-            default => 3
-        };
-
-        $this->quality += $increase;
     }
 }
