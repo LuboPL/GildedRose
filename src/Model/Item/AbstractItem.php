@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\Item;
+
+use App\Exception\GildedRoseLogicException;
 
 abstract class AbstractItem implements ItemBehaviourInterface
 {
@@ -42,14 +44,26 @@ abstract class AbstractItem implements ItemBehaviourInterface
         return false;
     }
 
+    /**
+     * @throws GildedRoseLogicException
+     */
     public function increaseQuality(): void
     {
         $this->quality++;
+        if ($this->quality > 50) {
+            throw new GildedRoseLogicException('Quality cannot be bigger than 50');
+        }
     }
 
+    /**
+     * @throws GildedRoseLogicException
+     */
     public function decreaseQuality(): void
     {
         $this->quality--;
+        if ($this->quality < 0) {
+            throw new GildedRoseLogicException('Quality cannot be negative');
+        }
     }
 
     public function decreaseSellInn(): void

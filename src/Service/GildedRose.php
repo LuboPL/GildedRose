@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Exception\GildedRoseLogicException;
-use App\Model\ItemBehaviourInterface;
+use App\Model\Item\ItemBehaviourInterface;
 
 class GildedRose
 {

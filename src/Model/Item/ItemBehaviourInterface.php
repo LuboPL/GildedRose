@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\Item;
 
 use App\Exception\GildedRoseLogicException;
 

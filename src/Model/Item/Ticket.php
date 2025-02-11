@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\Item;
 
 use App\Exception\GildedRoseLogicException;
 
@@ -26,15 +26,21 @@ class Ticket extends AbstractItem
      */
     public function increaseQuality(): void
     {
-        if ($this->raisesQuality()) {
-            if ($this->sellIn > 0) {
-                $increase = ($this->sellIn >= 10) ? 1 : (($this->sellIn > 5) ? 2 : 3);
-                if ($increase + $this->quality > 50) {
-                    throw new GildedRoseLogicException('Quality cannot be bigger than 50');
-                }
-                $this->quality += $increase;
-            }
+        if (!$this->raisesQuality() || $this->sellIn <= 0) {
+            return;
         }
+
+        $increase = match (true) {
+            $this->sellIn >= 10 => 1,
+            $this->sellIn > 5 => 2,
+            default => 3,
+        };
+
+        if ($this->quality + $increase > 50) {
+            throw new GildedRoseLogicException('Quality cannot be bigger than 50');
+        }
+
+        $this->quality += $increase;
     }
 
     public function hasExpirationDate(): bool

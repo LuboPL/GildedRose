@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Enum\ItemType;
-use App\Model\Cheese;
-use App\Model\Electronic;
-use App\Model\ItemBehaviourInterface;
-use App\Model\Legendary;
-use App\Model\Regular;
-use App\Model\Ticket;
+use App\Model\Item\Cheese;
+use App\Model\Item\Electronic;
+use App\Model\Item\ItemBehaviourInterface;
+use App\Model\Item\Legendary;
+use App\Model\Item\Regular;
+use App\Model\Item\Ticket;
 
 class ItemFactory
 {

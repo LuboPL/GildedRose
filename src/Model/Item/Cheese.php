@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\Item;
 
 use App\Exception\GildedRoseLogicException;
 
@@ -35,12 +35,6 @@ class Cheese extends AbstractItem
             }
             $this->quality += $increaseQuality;
         }
-
-    }
-
-    public function hasExpirationDate(): bool
-    {
-        return true;
     }
 
     public function decreaseQuality(): void

@@ -29,7 +29,6 @@ class GildedRoseTest extends TestCase
     {
         $type = $this->getItemTypeByName($name);
 
-
         $item = ItemFactory::create($name, $type, $sellIn, $quality);
 
         $this->gildedRose->updateQuality($item);
@@ -89,4 +88,3 @@ class GildedRoseTest extends TestCase
         throw new \RuntimeException(sprintf('Not found type, for product name: %s', $name));
     }
 }
-
