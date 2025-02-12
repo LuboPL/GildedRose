@@ -13,6 +13,7 @@ abstract class AbstractItem implements ItemBehaviourInterface
     )
     {
     }
+
     public function getSellIn(): int
     {
         return $this->sellIn;
