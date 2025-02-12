@@ -12,6 +12,9 @@ class Cheese extends AbstractItem
         return true;
     }
 
+    /**
+     * @throws GildedRoseLogicException
+     */
     public function updateQuality(): void
     {
         if ($this->raisesQuality() && $this->quality <= 50) {
