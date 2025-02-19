@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Model\Item;
+namespace App\Strategy;
 
 use App\Exception\GildedRoseLogicException;
+use App\Model\Item\AbstractItem;
 
 class Regular extends AbstractItem
 {
