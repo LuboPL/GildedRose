@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace App\Strategy;
 
-use App\Model\Item\AbstractItem;
+use App\Model\Item\Item;
 
-class Legendary extends AbstractItem
+class LegendaryItemStrategy implements UpdateItemStrategyInterface
 {
-    public function updateQuality(): void
+    public function apply(Item $item): void
     {
-    }
-
-    public function decreaseSellInn(): void
-    {
+        // do nothing
     }
 }

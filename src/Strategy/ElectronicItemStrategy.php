@@ -1,17 +1,14 @@
 <?php
 declare(strict_types=1);
-// this is example class with new item category
+// this is strategy class with new item category
 namespace App\Strategy;
 
-use App\Model\Item\AbstractItem;
+use App\Model\Item\Item;
 
-class Electronic extends AbstractItem
+class ElectronicItemStrategy implements UpdateItemStrategyInterface
 {
-    public function updateQuality(): void
+    public function apply(Item $item): void
     {
-    }
-
-    public function decreaseSellInn(): void
-    {
+        // implement logic
     }
 }

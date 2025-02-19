@@ -3,19 +3,20 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use App\Factory\ItemFactory;
+use App\Model\Item\Item;
 use App\Service\GildedRose;
+use App\Strategy\Factory\UpdateStrategyFactory;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
 {
     private readonly GildedRose $gildedRose;
-    private readonly ItemFactory $itemFactory;
+    private readonly UpdateStrategyFactory $strategyFactory;
 
     public function setUp(): void
     {
         $this->gildedRose = new GildedRose();
-        $this->itemFactory = new ItemFactory();
+        $this->strategyFactory = new UpdateStrategyFactory();
     }
 
     /**
@@ -31,7 +32,9 @@ class GildedRoseTest extends TestCase
     {
         $type = $this->getItemTypeByName($name);
 
-        $item = $this->itemFactory->create($name, $type, $sellIn, $quality);
+        $strategy = $this->strategyFactory->create($type);
+
+        $item = new Item($name, $type, $strategy, $sellIn, $quality);
 
         $this->gildedRose->updateItem($item);
 

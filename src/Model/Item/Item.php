@@ -3,13 +3,17 @@ declare(strict_types=1);
 
 namespace App\Model\Item;
 
-abstract class AbstractItem implements ItemBehaviourInterface
+use App\Exception\GildedRoseLogicException;
+use App\Strategy\UpdateItemStrategyInterface;
+
+final class Item
 {
     public function __construct(
         public readonly string $name,
         public readonly string $itemType,
-        protected int $sellIn,
-        protected int $quality
+        private readonly UpdateItemStrategyInterface $updateItemStrategy,
+        private int $sellIn,
+        private int $quality
     )
     {
     }
@@ -24,18 +28,36 @@ abstract class AbstractItem implements ItemBehaviourInterface
         return $this->quality;
     }
 
-    public function raisesQuality(): bool
-    {
-        return false;
-    }
-
     public function isExpired(): bool
     {
         return $this->sellIn < 0;
     }
 
-    public function decreaseSellInn(): void
+    public function setQuality(int $quality): void
+    {
+        $this->quality = $quality;
+    }
+
+    public function increaseQuality($increaseQuality): void
+    {
+        $this->quality += $increaseQuality;
+    }
+
+    public function decreaseQuality($decreaseQuality): void
+    {
+        $this->quality -= $decreaseQuality;
+    }
+
+    public function decreaseOneDaySellInn(): void
     {
         $this->sellIn--;
+    }
+
+    /**
+     * @throws GildedRoseLogicException
+     */
+    public function updateItemByStrategy(): void
+    {
+        $this->updateItemStrategy->apply($this);
     }
 }

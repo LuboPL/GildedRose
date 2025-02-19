@@ -6,10 +6,14 @@ namespace App\Strategy;
 use App\Exception\GildedRoseLogicException;
 use App\Model\Item\Item;
 
-class CheeseStrategy implements UpdateItemStrategyInterface
+class CheeseItemStrategy implements UpdateItemStrategyInterface
 {
+    /**
+     * @throws GildedRoseLogicException
+     */
     public function apply(Item $item): void
     {
+        $item->decreaseOneDaySellInn();
         if ($item->getQuality() <= 50) {
             $increaseQuality = $item->getSellIn() > 0 ? 1 : 2;
 

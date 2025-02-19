@@ -4,18 +4,19 @@ declare(strict_types=1);
 namespace App\Strategy;
 
 use App\Exception\GildedRoseLogicException;
-use App\Model\Item\AbstractItem;
+use App\Model\Item\Item;
 
-class Regular extends AbstractItem
+class RegularItemStrategy implements UpdateItemStrategyInterface
 {
     /**
      * @throws GildedRoseLogicException
      */
-    public function updateQuality(): void
+    public function apply(Item $item): void
     {
-        $this->isExpired() ? $this->quality -= 2 : $this->quality--;
-        if ($this->quality < 0) {
-            $this->quality = 0;
+        $item->decreaseOneDaySellInn();
+        $item->isExpired() ? $item->decreaseQuality(2) : $item->decreaseQuality(1);
+        if ($item->getQuality() < 0) {
+            $item->setQuality(0);
             throw new GildedRoseLogicException('Quality cannot be negative');
         }
     }
