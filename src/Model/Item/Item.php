@@ -38,12 +38,12 @@ final class Item
         $this->quality = $quality;
     }
 
-    public function increaseQuality($increaseQuality): void
+    public function increaseQuality(int $increaseQuality): void
     {
         $this->quality += $increaseQuality;
     }
 
-    public function decreaseQuality($decreaseQuality): void
+    public function decreaseQuality(int $decreaseQuality): void
     {
         $this->quality -= $decreaseQuality;
     }
