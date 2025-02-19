@@ -50,3 +50,10 @@ and by 3 when there are 5 days or less but Quality drops to 0 after the concert
 
 Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a legendary 
 item and as such its Quality is 80 and it never alters.
+
+## Summary
+
+Zadanie wykonane ;) 
+Wersja pierwotna z zadania znajduje się w głownej gałęzi "main", natomiast refaktor na 
+branchu "task-refactor", mamy teraz możliwośc łatwego dodania nowej kategori produktów, każdy dostępny typ itemu
+zawiera logikę biznesową w swojej klasie.
